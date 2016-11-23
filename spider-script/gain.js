@@ -127,7 +127,7 @@ async function run(cb) {
 	}
 	await insertDb(currentResult);
 	// 随机延迟 1000ms - 5000ms;
-	await delay(Math.floor(Math.random() * (5000 - 1000) + 100));
+	await delay(Math.floor(Math.random() * (5000 - 1000) + 1000));
 	currentPage++;
 	run(cb);
 }
