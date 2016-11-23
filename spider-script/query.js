@@ -4,7 +4,7 @@ const minimist = require('minimist');
 
 const argv = minimist(process.argv.slice(2));
 
-const dbConfig = require('./config.js').db;
+const dbConfig = require('../database/config.js').db;
 
 const env = argv.env || 'production';
 
@@ -17,8 +17,8 @@ global.DB = Mongoose.connect('mongodb://' + dbConfig[env].host + ':' + dbConfig[
 	pass: dbConfig[env].password
 });
 
-const dbHandler = require('./db.js');
-const lagou = dbHandler('lagou');
+const dbHandler = require('../database/handler.js');
+const lagou = dbHandler('position');
 
 let salartSort = {};
 

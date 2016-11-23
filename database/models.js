@@ -1,5 +1,5 @@
 module.exports = {
-	"lagou": {
+	"position": {
 		"adWord": Number,
 		"companyFullName": String,
 		"companyId": Number,
@@ -12,8 +12,8 @@ module.exports = {
 		"companyShortName": String,
 		"score": Number,
 		"city": String,
-		"salary-min": Number,
-		"salary-max": Number,
+		"salary-min": Number, // 最低薪资
+		"salary-max": Number, // 最高薪资 13k以上 用 999 表示
 		"approve": Number,
 		"positionAdvantage": String,
 		"companyLogo": String,

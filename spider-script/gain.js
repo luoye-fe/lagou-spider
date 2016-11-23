@@ -2,7 +2,7 @@ const Mongoose = require('mongoose');
 const minimist = require('minimist');
 const fetch = require('node-fetch');
 
-const dbConfig = require('./config.js').db;
+const dbConfig = require('../database/config.js').db;
 
 const argv = minimist(process.argv.slice(2));
 
@@ -23,9 +23,9 @@ global.DB = Mongoose.connect('mongodb://' + dbConfig[env].host + ':' + dbConfig[
 	pass: dbConfig[env].password
 });
 
-const dbHandler = require('./db.js');
+const dbHandler = require('../database/handler.js');
 
-const lagou = dbHandler('lagou');
+const lagou = dbHandler('position');
 
 let pageLen = 0;
 let currentPage = 0;
@@ -143,6 +143,7 @@ function init() {
 function loopAllCity() {
 	if (!cityList[0]) {
 		console.log('结束啦');
+		console.log(Date.now());
 		Mongoose.connection.close();
 		return;
 	}
@@ -158,6 +159,7 @@ function loopAllCity() {
 
 if (argvCity === 'all') {
 	console.log(`获取预设所有城市的前端求职信息: ${JSON.stringify(cityList)}`);
+	console.log(Date.now());
 	loopAllCity();
 } else {
 	init();
