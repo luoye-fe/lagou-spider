@@ -20,6 +20,8 @@ const Position = dbHandler('position');
 
 const argvCity = argv.city || 'all';
 
+const label = argv.label || '前端';
+
 // 获取所有城市信息
 function getAllCitysArr() {
 	return new Promise((resolve, reject) => {
@@ -72,7 +74,7 @@ function getSource(city, page) {
 					'X-Requested-With': 'XMLHttpRequest',
 					'Pragma': 'no-cache'
 				},
-				body: `first=false&kd=前端&pn=${page}`
+				body: `first=false&kd=${label}&pn=${page}`
 			})
 			.then((res) => {
 				return res.json();
@@ -182,7 +184,7 @@ function delay(ms = 1000) {
 async function main() {
 	let citysArr = await getAllCitysArr();
 	console.time('begin');
-	console.log(`获取 ${citysArr[0]} 等 ${citysArr.length} 个城市的前端求职信息`);
+	console.log(`获取 ${citysArr[0]} 等 ${citysArr.length} 个城市的 ${label} 求职信息`);
 	async function loop() {
 		city = citysArr[0]
 		if (!city) {

@@ -20,18 +20,21 @@ global.DB = Mongoose.connect('mongodb://' + dbConfig[env].host + ':' + dbConfig[
 const dbHandler = require('../database/handler.js');
 const lagou = dbHandler('position');
 
-let salartSort = {};
+let sortQuery = {};
 
 let sortOrder = -1;
 let sortFileld = 'min';
 
-salartSort[`salary-${sortFileld}`] = sortOrder;
+sortQuery[`salary-${sortFileld}`] = sortOrder;
+sortQuery['createTime'] = -1;
 
 let queryCity = city === '' ? {} : { city: city };
 
-lagou.find(queryCity, null, {
+lagou.find({
+	positionLables: '技术经理'
+}, null, {
 	skip: 0,
-	sort: salartSort,
+	sort: sortQuery,
 	limit: limit
 }, function(err, docs) {
 	if (err) {
@@ -39,6 +42,7 @@ lagou.find(queryCity, null, {
 	}
 	docs.forEach((item) => {
 		console.log(`公司名：${item.companyFullName}\n地址：www.lagou.com/jobs/${item.positionId}.html\n${sortFileld === 'min' ? '最低' : '最高'}薪水：${sortFileld === 'min' ? item['salary-min'] : item['salary-max']}k\n`);
+		// console.log(`公司名：${item.companyFullName}\n地址：www.lagou.com/jobs/${item.positionId}.html\n创建时间：${item.createTime}\n`);
 	});
 	Mongoose.connection.close();
 	process.exit(1);
