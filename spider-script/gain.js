@@ -9,7 +9,7 @@ const dbHandler = require('../database/handler.js');
 const argv = minimist(process.argv.slice(2));
 
 // 分环境连接数据库
-const env = argv.env || 'production';
+const env = argv.env || 'pro';
 global.DB = Mongoose.connect('mongodb://' + dbConfig[env].host + ':' + dbConfig[env].port + '/' + dbConfig[env].database, {
 	user: dbConfig[env].username,
 	pass: dbConfig[env].password

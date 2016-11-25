@@ -25,13 +25,14 @@ let sortQuery = {};
 let sortOrder = -1;
 let sortFileld = 'min';
 
-sortQuery[`salary-${sortFileld}`] = sortOrder;
+// sortQuery[`salary-${sortFileld}`] = sortOrder;
 sortQuery['createTime'] = -1;
 
 let queryCity = city === '' ? {} : { city: city };
 
 lagou.find({
-	positionLables: '技术经理'
+	positionLables: '前端',
+	city: '南京'
 }, null, {
 	skip: 0,
 	sort: sortQuery,
@@ -74,3 +75,8 @@ lagou.find({
 // 	Mongoose.connection.close();
 // 	process.exit(1);
 // });
+// 
+
+
+
+
