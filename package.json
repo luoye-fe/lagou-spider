@@ -1,32 +1,35 @@
 {
-	"name": "lagou-spider",
-	"version": "1.0.0",
-	"description": "get all positions on lagou.com and analyze them",
-	"main": "app.js",
-	"engines": {
-		"node": ">=7.0.0"
-	},
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/luoye-fe/lagou-spider.git"
-	},
-	"keywords": [
-		"lagou",
-		"spider",
-		"analyze"
-	],
-	"author": "<luoye 842891024@qq.com>",
-	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/luoye-fe/lagou-spider/issues"
-	},
-	"homepage": "https://github.com/luoye-fe/lagou-spider#readme",
-	"dependencies": {
-		"minimist": "^1.2.0",
-		"mongoose": "^4.6.8",
-		"node-fetch": "^1.6.3"
-	}
+  "name": "lagou-spider",
+  "version": "1.0.0",
+  "description": "get all positions on lagou.com and analyze them",
+  "main": "app.js",
+  "engines": {
+    "node": ">=7.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luoye-fe/lagou-spider.git"
+  },
+  "keywords": [
+    "lagou",
+    "spider",
+    "analyze"
+  ],
+  "author": "<luoye 842891024@qq.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luoye-fe/lagou-spider/issues"
+  },
+  "homepage": "https://github.com/luoye-fe/lagou-spider#readme",
+  "dependencies": {
+    "koa": "^2.0.0-alpha.7",
+    "koa-router": "^7.0.1",
+    "koa-static": "^3.0.0",
+    "minimist": "^1.2.0",
+    "mongoose": "^4.6.8",
+    "node-fetch": "^1.6.3"
+  }
 }
