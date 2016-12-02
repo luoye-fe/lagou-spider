@@ -2,7 +2,7 @@ const Mongoose = require('mongoose');
 const minimist = require('minimist');
 const fetch = require('node-fetch');
 
-const dbConfig = require('../database/config.js').db;
+const dbConfig = require('../config/db.config.js');
 const dbHandler = require('../database/handler.js');
 
 // 获取命令行参数

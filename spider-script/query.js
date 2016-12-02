@@ -4,7 +4,7 @@ const path = require('path');
 const Mongoose = require('mongoose');
 const minimist = require('minimist');
 
-const dbConfig = require('../database/config.js').db;
+const dbConfig = require('../config/db.config.js');
 
 const argv = minimist(process.argv.slice(2));
 

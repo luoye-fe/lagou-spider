@@ -15,6 +15,6 @@ node_modules/
 npm-debug.log
 
 # custom
-database/config.js
 temp/
 analyze/public/result.json
+config/*.js
