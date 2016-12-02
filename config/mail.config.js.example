@@ -1,0 +1,9 @@
+module.exports = {
+	host: 'smtp.qq.com',
+	port: 465,
+	secure: true,
+	auth: {
+		user: '842891024',
+		pass: ''
+	}
+}

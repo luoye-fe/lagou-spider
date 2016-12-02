@@ -2,6 +2,8 @@ const Mongoose = require('mongoose');
 const minimist = require('minimist');
 const fetch = require('node-fetch');
 
+const sendMail = require('./mail.js');
+
 const dbConfig = require('../config/db.config.js');
 const dbHandler = require('../database/handler.js');
 
@@ -189,12 +191,31 @@ getAllCitysArr()
 		let citysArr = [...arr];
 		console.log(`获取 ${citysArr[0]} 等 ${citysArr.length} 个城市的 ${label} 求职信息`);
 		function loop() {
-			city = citysArr[0]
+			city = citysArr[0];
 			if (!city) {
-				console.log('本次新增职位信息： ' + newPosition + ' 条!');
-				console.log('本次爬取时间： ' + (Date.now() - beginTime) + ' ms!');
-				Mongoose.connection.close();
-				process.exit(1);
+				let mailOptions = {
+				    from: '"Spider 👥" <842891024@qq.com>',
+				    to: '842891024@qq.com',
+				    subject: 'Lagou-spide Result ✔',
+				    html: 
+`
+本次爬取开始时间：${new Date(beginTime)}<br>
+本次新增职位信息： ${newPosition} 条！<br>
+本次爬取时间： ${(Date.now() - beginTime)} ms!<br>
+`
+				};
+				sendMail(mailOptions, (err) => {
+					console.log(
+`
+本次爬取开始时间：${new Date(beginTime)}
+本次新增职位信息： ${newPosition} 条！
+本次爬取时间： ${(Date.now() - beginTime)} ms!
+`);
+					console.log('邮件发送成功!');
+					Mongoose.connection.close();
+					process.exit(1);
+				});
+				return;
 			}
 			handleOneCity(city)
 				.then(() => {
