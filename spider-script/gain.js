@@ -22,6 +22,9 @@ const argvCity = argv.city || 'all';
 
 const label = argv.label || '前端';
 
+let newPosition = 0;
+let beginTime = Date.now();
+
 // 获取所有城市信息
 function getAllCitysArr() {
 	return new Promise((resolve, reject) => {
@@ -120,6 +123,7 @@ function writeDb(resultArr) {
 					}
 					Position.create(obj, (err) => {
 						if (err) reject(err);
+						newPosition ++;
 						currentArr.splice(0, 1);
 						loop();
 					})
@@ -180,24 +184,27 @@ function delay(ms = 1000) {
 	});
 }
 
-// main
-async function main() {
-	let citysArr = await getAllCitysArr();
-	console.time('begin');
-	console.log(`获取 ${citysArr[0]} 等 ${citysArr.length} 个城市的 ${label} 求职信息`);
-	async function loop() {
-		city = citysArr[0]
-		if (!city) {
-			console.log('结束啦');
-			console.timeEnd('begin')
-			Mongoose.connection.close();
-			process.exit(1);
+getAllCitysArr()
+	.then((arr) => {
+		let citysArr = [...arr];
+		console.log(`获取 ${citysArr[0]} 等 ${citysArr.length} 个城市的 ${label} 求职信息`);
+		function loop() {
+			city = citysArr[0]
+			if (!city) {
+				console.log('本次新增职位信息： ' + newPosition + ' 条!');
+				console.log('本次爬取时间： ' + (Date.now() - beginTime) + ' ms!');
+				Mongoose.connection.close();
+				process.exit(1);
+			}
+			handleOneCity(city)
+				.then(() => {
+					citysArr.splice(0, 1);
+					loop();
+				})
 		}
-		let positions = await handleOneCity(city);
-		citysArr.splice(0, 1);
-		loop();
-	}
-	loop();
-}
-
-main();
+		loop();	
+	})
+	.catch((e) => {
+		Mongoose.connection.close();
+		process.exit(1);
+	})
