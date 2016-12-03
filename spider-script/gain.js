@@ -1,5 +1,3 @@
-const schedule = require('node-schedule');
-
 const Mongoose = require('mongoose');
 const minimist = require('minimist');
 const fetch = require('node-fetch');
