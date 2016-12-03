@@ -18,6 +18,7 @@ global.DB = Mongoose.connect('mongodb://' + dbConfig[env].host + ':' + dbConfig[
 const dbHandler = require('../database/handler.js');
 const LAGOU = dbHandler('position');
 
+const targetJSON = path.join(__dirname, '../analyze/public/result.json');
 
 
 
