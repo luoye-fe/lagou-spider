@@ -165,8 +165,7 @@ function handleOneCity(city) {
 					}
 					if (pageSum === 0) {
 						resolve();
-						throw
-						function() {}
+						throw function() {}
 					}
 					return writeDb(result.res);
 				})
