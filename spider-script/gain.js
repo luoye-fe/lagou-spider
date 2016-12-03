@@ -224,6 +224,9 @@ getAllCitysArr()
 					citysArr.splice(0, 1);
 					loop();
 				})
+				.catch((e) => {
+					loop();
+				})
 		}
 		loop();
 	})
