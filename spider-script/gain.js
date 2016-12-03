@@ -148,7 +148,7 @@ function handleOneCity(city) {
 		console.log(`获取 ${city} 的职位信息`);
 
 		function loop() {
-			if (currentPage >= pageSum && pageSum !== -1) {
+			if (currentPage > pageSum && pageSum !== -1) {
 				resolve();
 				return;
 			}
