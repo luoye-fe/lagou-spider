@@ -21,8 +21,31 @@ const LAGOU = dbHandler('position');
 const targetJSON = path.join(__dirname, '../analyze/public/result.json');
 
 
-
-
+// 修正最高薪资
+/*
+LAGOU.find({
+	'salary-max': 999
+}, (err, docs) => {
+	let index = 0;
+	function loop() {
+		if (!docs[index]) return;
+		let item  = docs[index];
+		LAGOU.update({
+			'positionId': item.positionId
+		}, {
+			$set: {
+				'salary-max': item['salary-min']
+			}
+		}, (err, raw) => {
+			if (err) return err;
+			console.log(raw);
+			index++;
+			loop();
+		});
+	}
+	loop();
+})
+*/
 
 
 
