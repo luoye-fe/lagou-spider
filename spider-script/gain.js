@@ -119,7 +119,7 @@ function writeDb(resultArr) {
 						obj = currentArr[0] || {};
 						let salary = obj.salary || '0k-0k';
 						obj['salary-min'] = salary.split('-')[0].replace(/\D/g, '');
-						obj['salary-max'] = salary.split('-')[1] ? salary.split('-')[1].replace(/\D/g, '') : '999';
+						obj['salary-max'] = salary.split('-')[1] ? salary.split('-')[1].replace(/\D/g, '') : salary.split('-')[0];
 						delete obj.salary;
 					} catch (e) {
 						reject(e);
@@ -199,7 +199,7 @@ getAllCitysArr()
 				let mailOptions = {
 					from: '"Spider 👥" <842891024@qq.com>',
 					to: '842891024@qq.com',
-					subject: 'Lagou-spide Result ✔',
+					subject: 'Lagou-spider Result ✔',
 					html: `
 	本次爬取开始时间：${new Date(beginTime)}<br>
 	本次新增职位信息： ${newPosition} 条！<br>
