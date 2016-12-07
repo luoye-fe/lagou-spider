@@ -201,7 +201,7 @@ getAllCitysArr()
 					to: '842891024@qq.com',
 					subject: 'Lagou-spider Result ✔',
 					html: `
-	本次爬取开始时间：${new Date(beginTime).toLocaleTimeString('ja-CN', { year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit",second: '2-digit' })}<br>
+	本次爬取开始时间：${new Date(beginTime).toISOString().replace(/T/, ' ').replace(/\..+/, '')}<br>
 	本次新增职位信息： ${newPosition} 条！<br>
 	本次爬取时间： ${(Date.now() - beginTime)} ms!<br>
 	`
@@ -209,7 +209,7 @@ getAllCitysArr()
 				sendMail(mailOptions, (err) => {
 					console.log(
 						`
-	本次爬取开始时间：${new Date(beginTime).toLocaleTimeString('ja-CN', { year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit",second: '2-digit' })}
+	本次爬取开始时间：${new Date(beginTime).toISOString().replace(/T/, ' ').replace(/\..+/, '')}
 	本次新增职位信息： ${newPosition} 条！
 	本次爬取时间： ${(Date.now() - beginTime)} ms!
 	`);
