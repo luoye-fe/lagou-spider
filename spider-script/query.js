@@ -22,48 +22,29 @@ const env = argv.env || 'pro';
 // const LAGOU = dbHandler('position');
 
 const targetJSON = path.join(__dirname, '../analyze/public/result.json');
+const tempJSON = path.join(__dirname, '../temp/result.json');
 
-
-// 修正最高薪资
-/*
-LAGOU.find({
-	'salary-max': 999
-}, (err, docs) => {
-	let index = 0;
-	function loop() {
-		if (!docs[index]) return;
-		let item  = docs[index];
-		LAGOU.update({
-			'positionId': item.positionId
-		}, {
-			$set: {
-				'salary-max': item['salary-min']
-			}
-		}, (err, raw) => {
-			if (err) return err;
-			console.log(raw);
-			index++;
-			loop();
-		});
-	}
-	loop();
-})
-*/
-
-
-let result = [];
+let resultTpl = {
+	generateTime: 0,
+	charts: []
+};
 
 let spinner = ora('正在获取库数据 ...').start();
+
 // LAGOU.find({}, (err, docs) => {
 // 	spinner.stop();
 // 	logger.success(`获取库数据成功，共 ${docs.length} 条数据`);
-// 	fs.writeFileSync(targetJSON, JSON.stringify(docs));
+//	resultTpl.generateTime = Date.now();
+// 	fs.writeFileSync('../temp/result.json', JSON.stringify(docs));
 // });
 
-fs.readFile(targetJSON, 'utf-8', async(err, docs) => {
+fs.readFile('../temp/result.json', 'utf-8', async(err, docs) => {
 	spinner.stop();
-	logger.success(`获取库数据成功，共 ${docs.length} 条数据`);
-	await averageSalary(JSON.parse(docs));
+	logger.success(`获取库数据成功，共 ${JSON.parse(docs).length} 条数据`);
+	resultTpl.generateTime = Date.now();
+	let c1 = await averageSalary(JSON.parse(docs));
+	resultTpl.charts.push(c1);
+	fs.writeFileSync(targetJSON, JSON.stringify(resultTpl));
 });
 
 
@@ -108,22 +89,19 @@ async function averageSalary(docs) {
 
 	let echartOption = {
 		backgroundColor: '#404a59',
-		// color: [
-		// '#dd4444', '#fec42c', '#80F1BE'
-		// ],
-		// title: {
-		// 	text: '123',
-		// 	x: 'center',
-		// 	y: 0,
-		// 	textStyle: {
-		// 		color: '#fff'
-		// 	}
-		// },
+		title: {
+			text: '123',
+			x: 'center',
+			y: 0,
+			textStyle: {
+				color: '#fff'
+			}
+		},
 		grid: {
 			show: true
 		},
 		legend: {
-			y: 'top',
+			y: 26,
 			data: ['北京', '上海', '广州', '深圳', '杭州', '南京'],
 			textStyle: {
 				color: '#fff',
@@ -227,13 +205,11 @@ async function averageSalary(docs) {
 			itemStyle: itemStyle
 		}, {
 			type: 'scatter',
-			name: '杭州',
+			name: '南京',
 			data: resultData[5],
 			itemStyle: itemStyle
 		}]
 	};
-	// console.log(JSON.stringify(echartOption));
-	console.log(resultData[0]);
 	return echartOption;
 }
 
