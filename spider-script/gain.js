@@ -119,7 +119,7 @@ function writeDb(resultArr) {
 						obj = currentArr[0] || {};
 						let salary = obj.salary || '0k-0k';
 						obj['salary-min'] = salary.split('-')[0].replace(/\D/g, '');
-						obj['salary-max'] = salary.split('-')[1] ? salary.split('-')[1].replace(/\D/g, '') : salary.split('-')[0];
+						obj['salary-max'] = salary.split('-')[1] ? salary.split('-')[1].replace(/\D/g, '') : salary.split('-')[0].replace(/\D/g, '');
 						delete obj.salary;
 					} catch (e) {
 						reject(e);

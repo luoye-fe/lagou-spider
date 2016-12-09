@@ -1,8 +1,7 @@
 Vue.directive('chart', {
 	bind(el) {
-		// console.log(el);
-		el.style.width = document.body.clientWidth/10*9 + 'px';
-		el.style.height = document.body.clientWidth/10*9/16*9 + 'px';
+		el.style.width = document.body.clientWidth/10*7 + 'px';
+		el.style.height = document.body.clientWidth/10*7/16*9 + 'px';
 	},
 	inserted(el, binding) {
 		var myChart = echarts.init(el);
