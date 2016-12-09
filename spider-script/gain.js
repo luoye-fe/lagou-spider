@@ -190,45 +190,50 @@ function delay(ms = 1000) {
 
 getAllCitysArr()
 	.then((arr) => {
-		let citysArr = [...arr];
-		console.log(`获取 ${citysArr[0]} 等 ${citysArr.length} 个城市的 ${label} 求职信息`);
+		return new Promise((resolve, reject) => {
+				let citysArr = [...arr];
+				console.log(`获取 ${citysArr[0]} 等 ${citysArr.length} 个城市的 ${label} 求职信息`);
 
-		function loop() {
-			city = citysArr[0];
-			if (!city) {
-				let mailOptions = {
-					from: '"Spider 👥" <842891024@qq.com>',
-					to: '842891024@qq.com',
-					subject: 'Lagou-spider Result ✔',
-					html: `
+				function loop() {
+					city = citysArr[0];
+					if (!city) {
+						let mailOptions = {
+							from: '"Spider 👥" <842891024@qq.com>',
+							to: '842891024@qq.com',
+							subject: 'Lagou-spider Result ✔',
+							html: `
 	本次爬取开始时间：${new Date(beginTime).toLocaleTimeString('ja-chinese', {year: "numeric", month: '2-digit', day: '2-digit'})}<br>
 	本次新增职位信息： ${newPosition} 条！<br>
 	本次爬取时间： ${(Date.now() - beginTime)} ms!<br>
 	`
-				};
-				sendMail(mailOptions, (err) => {
-					console.log(
-						`
+						};
+						sendMail(mailOptions, (err) => {
+							console.log(
+								`
 	本次爬取开始时间：${new Date(beginTime).toLocaleTimeString('ja-chinese', {year: "numeric", month: '2-digit', day: '2-digit'})}
 	本次新增职位信息： ${newPosition} 条！
 	本次爬取时间： ${(Date.now() - beginTime)} ms!
 	`);
-					console.log('邮件发送成功!');
-					Mongoose.connection.close();
-					process.exit(1);
-				});
-				return;
-			}
-			handleOneCity(city)
-				.then(() => {
-					citysArr.splice(0, 1);
-					loop();
-				})
-				.catch((e) => {
-					loop();
-				})
-		}
-		loop();
+							console.log('邮件发送成功!');
+							resolve();
+						});
+						return;
+					}
+					handleOneCity(city)
+						.then(() => {
+							citysArr.splice(0, 1);
+							loop();
+						})
+						.catch((e) => {
+							reject(e);
+						})
+				}
+				loop();
+		});
+	})
+	.then(() => {
+		Mongoose.connection.close();
+		process.exit(1);
 	})
 	.catch((e) => {
 		console.log(e);
