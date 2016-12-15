@@ -35,5 +35,13 @@
     "node-fetch": "^1.6.3",
     "nodemailer": "^2.6.4",
     "ora": "^0.3.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.20.0",
+    "babel-preset-latest": "^6.16.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-cssmin": "^0.1.7",
+    "gulp-uglify": "^2.0.0"
   }
 }
